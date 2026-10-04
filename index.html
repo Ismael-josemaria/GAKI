@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAKI - Encuentra conexiones reales</title>
+    <meta name="description" content="GAKI es la aplicación de citas que se enfoca en tus gustos y pasiones, no solo en tu apariencia.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        <header>
+            <h1 class="logo">GAKI</h1>
+            <p class="subtitle">Conecta a través de tus pasiones</p>
+        </header>
+
+        <section class="glass-panel" id="form-section">
+            <h2>Cuéntanos sobre ti</h2>
+            <p class="form-instruction">Para encontrar tu conexión ideal, primero necesitamos conocer tus gustos.</p>
+            
+            <form id="tastes-form">
+                <div class="form-group">
+                    <label for="name">¿Cómo te llamas?</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="gender">Me identifico como</label>
+                        <select id="gender" name="gender" class="custom-select" required>
+                            <option value="" disabled selected>Selecciona tu género</option>
+                            <option value="mujer">Mujer</option>
+                            <option value="hombre">Hombre</option>
+                            <option value="no-binario">No binario</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="looking-for">Busco conectar con</label>
+                        <select id="looking-for" name="looking-for" class="custom-select" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="mujeres">Mujeres</option>
+                            <option value="hombres">Hombres</option>
+                            <option value="todos">Cualquiera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>¿Qué tipo de música disfrutas más?</label>
+                    <div class="tags-selector" id="music-tags">
+                        <button type="button" class="tag" data-value="rock">Rock</button>
+                        <button type="button" class="tag" data-value="pop">Pop</button>
+                        <button type="button" class="tag" data-value="indie">Indie</button>
+                        <button type="button" class="tag" data-value="electronic">Electrónica</button>
+                        <button type="button" class="tag" data-value="classical">Clásica</button>
+                        <button type="button" class="tag" data-value="jazz">Jazz</button>
+                        <button type="button" class="tag" data-value="reggaeton">Reggaetón</button>
+                        <button type="button" class="tag" data-value="kpop">K-Pop</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tus planes ideales para el fin de semana:</label>
+                    <div class="tags-selector" id="weekend-tags">
+                        <button type="button" class="tag" data-value="movies">Películas en casa</button>
+                        <button type="button" class="tag" data-value="outdoors">Naturaleza y senderismo</button>
+                        <button type="button" class="tag" data-value="party">Salir de fiesta</button>
+                        <button type="button" class="tag" data-value="food">Probar restaurantes</button>
+                        <button type="button" class="tag" data-value="culture">Museos y arte</button>
+                        <button type="button" class="tag" data-value="gaming">Noche de videojuegos</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passion">¿Cuál es tu mayor pasión o hobby?</label>
+                    <textarea id="passion" name="passion" rows="3" placeholder="Ej. Me encanta la fotografía analógica, pasar tiempo con mis mascotas..." required></textarea>
+                </div>
+
+                <div class="form-group file-upload-group">
+                    <label>Sube una foto que te represente</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="photo" name="photo" accept="image/*" class="file-input">
+                        <div class="file-upload-content">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            <span>Haz clic o arrastra tu foto aquí</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <span>Encontrar mi GAKI</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </form>
+        </section>
+
+        <section class="glass-panel hidden" id="success-section">
+            <div class="success-content">
+                <div class="success-icon">✨</div>
+                <h2>¡Perfil creado!</h2>
+                <p>Buscando a tu GAKI ideal...</p>
+                <div class="loading-pulse"></div>
+            </div>
+        </section>
+
+        <!-- Nueva sección de descubrimiento (Tinder/Boo style) -->
+        <section class="discovery-section hidden" id="discovery-section">
+            <div class="match-card" id="match-card">
+                <div class="card-image-container">
+                    <!-- Usando una imagen de placeholder de Unsplash para la demo -->
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Foto de perfil" class="profile-img">
+                    <div class="card-overlay">
+                        <div class="profile-info">
+                            <h3>Sofía, 24 <span class="online-dot"></span></h3>
+                            <p class="location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                A 5 km de ti
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Badges para el swipe -->
+                    <div class="swipe-badge badge-like" id="badge-like">LIKE</div>
+                    <div class="swipe-badge badge-nope" id="badge-nope">NOPE</div>
+                </div>
+                
+                <div class="card-details">
+                    <div class="shared-tags">
+                        <span class="shared-tag match"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> Indie</span>
+                        <span class="shared-tag match"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> Museos y arte</span>
+                        <span class="shared-tag">Rock</span>
+                        <span class="shared-tag">Fotografía</span>
+                    </div>
+                    <p class="bio">Amante del café de especialidad y la fotografía analógica. Siempre buscando la próxima exposición de arte en la ciudad. ☕📸</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn pass-btn" id="btn-pass">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button class="action-btn like-btn" id="btn-like">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Match Overlay -->
+    <div class="match-overlay hidden" id="match-overlay">
+        <div class="match-content">
+            <h2 class="match-title">¡Es un GAKI!</h2>
+            <p class="match-subtitle">Tú y Sofía se gustan y comparten pasiones.</p>
+            <div class="match-avatars">
+                <div class="avatar-circle user-avatar"></div>
+                <div class="avatar-circle match-avatar" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
+            </div>
+            <button class="btn-primary match-action-btn" id="btn-send-message">Enviar mensaje</button>
+            <button class="btn-secondary" id="btn-keep-swiping">Seguir buscando</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav hidden" id="bottom-nav">
+        <a href="#" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </a>
+        <a href="#" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </a>
+        <a href="#" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span class="nav-badge">2</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
