@@ -15,20 +15,56 @@
     </div>
 
     <main class="container">
-        <header>
-            <h1 class="logo">GAKI</h1>
+        <!-- Hero Section -->
+        <header class="hero-section reveal-on-scroll">
+            <div class="logo-wrapper">
+                <h1 class="logo">GAKI</h1>
+                <div class="logo-glow"></div>
+            </div>
             <p class="subtitle">Conecta a través de tus pasiones</p>
+            <p class="hero-description">Más que apariencias, buscamos conexiones reales basadas en lo que amas.</p>
+            <div class="scroll-indicator">
+                <span>Descubre más</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
         </header>
 
-        <section class="glass-panel" id="form-section">
+        <!-- Features Section -->
+        <section class="features-section reveal-on-scroll" id="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Pasiones primero</h3>
+                <p>Encontramos personas que vibran con tus mismos intereses.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Conexiones reales</h3>
+                <p>Adiós a las charlas vacías, hola a las conversaciones con sentido.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Base de Datos Local</h3>
+                <p>Tus datos se guardan de forma segura (LocalStorage/JSON).</p>
+            </div>
+        </section>
+
+        <section class="glass-panel reveal-on-scroll" id="form-section">
             <h2>Cuéntanos sobre ti</h2>
             <p class="form-instruction">Para encontrar tu conexión ideal, primero necesitamos conocer tus gustos.</p>
             
             <form id="tastes-form">
-                <div class="form-group">
-                    <label for="name">¿Cómo te llamas?</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="name">¿Cómo te llamas?</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                        </div>
+                    </div>
+                    <div class="form-group half">
+                        <label for="age">¿Qué edad tienes?</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="age" name="age" placeholder="Edad" min="18" max="99" required class="custom-input-number">
+                        </div>
                     </div>
                 </div>
 
@@ -50,6 +86,33 @@
                             <option value="mujeres">Mujeres</option>
                             <option value="hombres">Hombres</option>
                             <option value="todos">Cualquiera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="distance">Distancia máxima que buscas: <span id="distance-val" style="color:var(--accent-1); font-weight:bold;">10</span> km</label>
+                    <input type="range" id="distance" name="distance" min="1" max="100" value="10" class="custom-slider">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="pets">¿Mascotas?</label>
+                        <select id="pets" name="pets" class="custom-select" required>
+                            <option value="" disabled selected>Selecciona</option>
+                            <option value="perro">Tengo perro(s)</option>
+                            <option value="gato">Tengo gato(s)</option>
+                            <option value="otros">Otras mascotas</option>
+                            <option value="no">No tengo</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label for="smoke">¿Fumas?</label>
+                        <select id="smoke" name="smoke" class="custom-select" required>
+                            <option value="" disabled selected>Selecciona</option>
+                            <option value="no">No fumo</option>
+                            <option value="social">Ocasionalmente</option>
+                            <option value="si">Sí fumo</option>
                         </select>
                     </div>
                 </div>
@@ -152,6 +215,34 @@
                 </button>
             </div>
         </section>
+
+        <!-- Sección de Matches y Mensajes -->
+        <section class="matches-section hidden" id="matches-section">
+            <h2 class="section-title">Tus Matches</h2>
+            <div class="matches-list" id="matches-list">
+                <!-- Los matches se generarán dinámicamente aquí -->
+            </div>
+        </section>
+
+        <!-- Sección de Chat Activo -->
+        <section class="chat-section hidden" id="chat-section">
+            <div class="chat-header">
+                <button class="back-btn" id="btn-back-matches">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div class="chat-avatar" id="chat-avatar"></div>
+                <h3 id="chat-name">Nombre</h3>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Mensajes del chat -->
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
+                <button class="send-btn" id="btn-send-msg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </section>
     </main>
 
     <!-- Match Overlay -->
@@ -170,17 +261,27 @@
 
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav hidden" id="bottom-nav">
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" id="nav-profile">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         </a>
-        <a href="#" class="nav-item active">
+        <a href="#" class="nav-item active" id="nav-discover">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
         </a>
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" id="nav-matches">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <span class="nav-badge">2</span>
+            <span class="nav-badge hidden" id="matches-badge">0</span>
         </a>
     </nav>
+
+    <!-- Floating Database Tools -->
+    <div class="db-tools">
+        <button id="btn-export-db" class="db-btn" title="Guardar Base de Datos">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        </button>
+        <button id="btn-clear-db" class="db-btn db-btn-danger" title="Borrar Base de Datos">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+        </button>
+    </div>
 
     <script src="script.js"></script>
 </body>
