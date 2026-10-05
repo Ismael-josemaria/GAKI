@@ -21,6 +21,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Toast Notification System
+    const showToast = (message, type = 'success') => {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const icon = type === 'success' ? '✓' : '⚠';
+        toast.innerHTML = `<strong>${icon}</strong> ${message}`;
+        
+        container.appendChild(toast);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            toast.classList.add('toast-leave');
+            toast.addEventListener('animationend', () => {
+                toast.remove();
+            });
+        }, 3000);
+    };
+
     // Database Logic (LocalStorage pseudo-DB)
     const DB_KEY = 'gaki_database';
     
@@ -88,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(downloadAnchorNode);
             downloadAnchorNode.click();
             downloadAnchorNode.remove();
-            alert("Base de datos guardada en tu carpeta de descargas como gaki_database.json");
+            showToast("Base de datos exportada con éxito", "success");
         });
     }
 
@@ -96,8 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnClear.addEventListener('click', () => {
             if (confirm('¿Estás seguro de que quieres borrar todos los datos locales?')) {
                 localStorage.removeItem(DB_KEY);
-                alert("Base de datos borrada. Recarga la página para empezar de cero.");
-                location.reload();
+                showToast("Base de datos borrada. Recargando...", "error");
+                setTimeout(() => location.reload(), 1500);
             }
         });
     }
@@ -278,6 +300,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show overlay
         matchOverlay.querySelector('.match-subtitle').textContent = `Tú y ${currentProfile.name} se gustan y comparten pasiones.`;
         matchOverlay.querySelector('.match-avatar').style.backgroundImage = `url('${currentProfile.img}')`;
+        
+        // Confetti!
+        if (typeof confetti === 'function') {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#8b5cf6', '#ec4899', '#ffffff']
+            });
+        }
         
         setTimeout(() => {
             matchOverlay.classList.remove('hidden');
@@ -531,9 +563,19 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.value = '';
         renderMessages();
 
-        // Bot (dummy profile) responde después de 1 segundo
         const botMatchId = currentActiveChatId;
+        
+        // Mostrar "escribiendo..."
+        const typingId = 'typing-' + Date.now();
+        chatMessagesEl.innerHTML += `<div id="${typingId}" class="message received typing-indicator"><span>.</span><span>.</span><span>.</span></div>`;
+        chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+
+        // Bot (dummy profile) responde después de 1.5 segundos
         setTimeout(() => {
+            // Eliminar "escribiendo..."
+            const typingEl = document.getElementById(typingId);
+            if(typingEl) typingEl.remove();
+
             const replies = ["¡Hola!", "¡Qué interesante!", "Jaja, me encanta eso.", "Yo también pienso igual.", "¿Y a ti qué te gusta hacer?"];
             const randomReply = replies[Math.floor(Math.random() * replies.length)];
             saveMessage(botMatchId, randomReply, 'them');
